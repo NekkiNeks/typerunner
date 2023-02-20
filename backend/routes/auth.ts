@@ -1,14 +1,11 @@
 import { Router } from "express";
 import { getApiResponse } from "../utils/Format";
 
-// Controllers
-import {
-  loginUser,
-  createUser,
-  deleteUser,
-  getUserById,
-} from "../functions/User";
+import { loginUser, registerUser } from "../Controllers/Auth";
+import { getUser } from "../Controllers/User";
+
 import { createJwt, validateJwtMiddleware } from "../functions/Jwt";
+import { AuthError } from "../utils/Errors";
 
 const router = Router();
 
@@ -19,7 +16,7 @@ router.post("/login", async (req, res) => {
     const token = createJwt(user.id);
     res.send(getApiResponse(true, { user, token }, null));
   } catch (err: any) {
-    res.send(getApiResponse(false, null, err.message));
+    res.send(getApiResponse(false, null, err));
   }
 });
 
@@ -27,35 +24,35 @@ router.post("/register", async (req, res) => {
   try {
     const { login, password, email } = req.body;
     if (!login || !password || !email)
-      throw new Error("Не все данные были переданы");
+      throw new AuthError("Не все данные были переданы");
 
-    const user = await createUser(login, password, email);
+    const user = await registerUser(login, password, email);
     const token = createJwt(user.id);
     res.send(getApiResponse(true, { user, token }, null));
   } catch (err: any) {
-    res.send(getApiResponse(false, null, err.message));
+    res.send(getApiResponse(false, null, err));
   }
 });
 
 router.post("/token", validateJwtMiddleware, async (req, res) => {
   try {
     const userId = res.locals.user.id;
-    const user = await getUserById(userId);
-    if (!user) throw new Error("Пользователь с таким id не найден");
+    const user = await getUser(userId);
+    if (!user) throw new AuthError("Пользователь с таким id не найден");
     res.send(getApiResponse(true, { user }, null));
   } catch (err: any) {
-    res.send(getApiResponse(false, null, err.message));
+    res.send(getApiResponse(false, null, err));
   }
 });
 
-router.delete("/", validateJwtMiddleware, async (req, res) => {
-  try {
-    const userId = res.locals.user.id;
-    const data = await deleteUser(userId);
-    res.send(getApiResponse(true, data, null));
-  } catch (err: any) {
-    res.send(getApiResponse(false, null, err.message));
-  }
-});
+// router.delete("/", validateJwtMiddleware, async (req, res) => {
+//   try {
+//     const userId = res.locals.user.id;
+//     const data = await deleteUser(userId);
+//     res.send(getApiResponse(true, data, null));
+//   } catch (err: any) {
+//     res.send(getApiResponse(false, null, err.message));
+//   }
+// });
 
 export default router;

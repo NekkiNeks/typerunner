@@ -5,6 +5,7 @@ import { useUserStore } from "../store/userStore";
 import Spinner from "./Spinner.vue";
 
 import { router } from "../router";
+import { ClientError, ServerError } from "../helpers/Errors";
 
 const { aLogin, aRegister } = useUserStore();
 const props = defineProps<{ registration?: boolean }>();
@@ -37,9 +38,16 @@ async function handleSubmit(e: any) {
       console.log("Вход выполнен");
       router.push({ path: "/user" });
     }
-  } catch (err: any) {
-    console.error(err.message);
-    error.value = err.message;
+  } catch (err) {
+    if (err instanceof ServerError) {
+      error.value = "Ошибка при запросе к серверу";
+      console.error(err.message);
+    } else if (err instanceof ClientError) {
+      error.value = err.message;
+      console.warn("Ошибка клиента: ", err.message);
+    } else {
+      throw err;
+    }
   } finally {
     loading.value = false;
   }

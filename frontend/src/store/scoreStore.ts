@@ -14,9 +14,8 @@ export const useScoreStore = defineStore("score", {
     async updateScore(score: number) {
       const userStore = useUserStore();
       if (userStore.logged) {
-        const response = await api.post("/add", { userResult: score });
-        if (!response.success) throw new Error(response.message);
-        console.log(`ID: ${userStore.id} отпрален на сервер`);
+        const data = await api.post("/result/add", { result: score });
+        console.log(data, " отправлен на сервер");
       }
       this.lastScore = score;
       this.allScores.push(score);

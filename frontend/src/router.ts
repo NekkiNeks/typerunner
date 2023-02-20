@@ -26,7 +26,12 @@ router.beforeEach(async (to, from) => {
 
   const token = localStorage.getItem("token");
   if (!logged && token) {
-    await aVerificateByToken(token);
+    try {
+      await aVerificateByToken(token);
+    } catch (err: any) {
+      console.log("Ошибка аутентификации по токену.");
+      localStorage.removeItem("token");
+    }
   }
 
   // Если юзер не залогинен, то он не может перейти на страницу юзера

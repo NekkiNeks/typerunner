@@ -16,10 +16,14 @@ async function getTextFromDatabase() {
 }
 
 async function sendResultToDatabase(score: number) {
-  await new Promise<void>((r) => {
-    setTimeout(() => r(), 1000);
-  });
-  updateScore(score);
+  try {
+    await new Promise<void>((r) => {
+      setTimeout(() => r(), 1000);
+    });
+    updateScore(score);
+  } catch (err: any) {
+    console.log("send result to database error", err.message);
+  }
 }
 
 class Text {

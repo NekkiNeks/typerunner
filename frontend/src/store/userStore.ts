@@ -20,37 +20,32 @@ export const useUserStore = defineStore("user", {
 
   actions: {
     async aLogin(login: string, password: string) {
-      const response = await api.post<loginResponse>("/auth/login", {
+      const data = await api.post<loginResponse>("/auth/login", {
         login,
         password,
       });
-      if (!response.success)
-        throw new Error(`Ошибка при логине: ${response.message}`);
-      this.login = response.data.user.login;
-      this.id = response.data.user.id;
-      localStorage.setItem("token", response.data.token);
+
+      this.login = data.user.login;
+      this.id = data.user.id;
+      localStorage.setItem("token", data.token);
       this.logged = true;
     },
     async aRegister(login: string, password: string, email: string) {
-      const response = await api.post<loginResponse>("/auth/register", {
+      const data = await api.post<loginResponse>("/auth/register", {
         login,
         password,
         email,
       });
-      if (!response.success)
-        throw new Error(`Ошибка при регистрации: ${response.message}`);
-      this.login = response.data.user.login;
-      this.id = response.data.user.id;
-      localStorage.setItem("token", response.data.token);
+      this.login = data.user.login;
+      this.id = data.user.id;
+      localStorage.setItem("token", data.token);
       this.logged = true;
     },
 
-    async aVerificateByToken(token: string) {
-      const response = await api.post<loginResponse>("/auth/token", {});
-      if (!response.success)
-        throw new Error(`Ошибка при верификации: ${response.message}`);
-      this.login = response.data.user.login;
-      this.id = response.data.user.id;
+    async aVerificateByToken() {
+      const data = await api.post<loginResponse>("/auth/token", {});
+      this.login = data.user.login;
+      this.id = data.user.id;
       this.logged = true;
     },
 

@@ -1,15 +1,16 @@
 import { Router } from "express";
 import { getApiResponse } from "../utils/Format";
-import { getUserById } from "../functions/User";
+import { getUser } from "../Controllers/User";
+import Database from "../utils/Database";
 
 const router = Router();
 
-router.get("/:id", async (req, res) => {
+router.get("/:userid", async (req, res) => {
   try {
-    const data = await getUserById(req.params.id);
+    const data = await getUser(req.params.userid);
     res.send(getApiResponse(true, data, null));
   } catch (err: any) {
-    res.send(getApiResponse(false, null, err.message));
+    res.send(getApiResponse(false, null, err));
   }
 });
 
