@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { useUserStore } from "../store/userStore";
 import { router } from "../router";
-const { aLogout } = useUserStore();
+const userStore = useUserStore();
 
 function logout() {
-  aLogout();
+  userStore.aLogout();
   router.push({ path: "/login" });
 }
+
+console.log(userStore);
 </script>
 
 <template>
-  this is userpage
+  <p>this is userpage {{ userStore.login }}</p>
   <button @click="logout">Выйти</button>
 </template>

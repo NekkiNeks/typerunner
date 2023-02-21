@@ -26,7 +26,7 @@ class Api {
       method: "GET",
       headers: headers,
     });
-    if (response.status >= 500)
+    if (!response.ok)
       throw new ServerError(
         `Ошибка при запросе к серверу. Статус: ${response.status}`
       );
@@ -45,7 +45,6 @@ class Api {
   }
 
   public async post<T = any>(url: string, body: any): Promise<T> {
-    console.log(url, body);
     const headers = new Headers();
     if (this.token) headers.append("authorization", `Bearer ${this.token}`);
     headers.append("Content-Type", "Application/json");
@@ -70,7 +69,7 @@ class Api {
           throw new Error(`Необработанная ошибка! ${data.error.message}`);
       }
     }
-
+    console.log(url, data);
     return data.data;
   }
 }

@@ -38,7 +38,6 @@ router.post("/token", validateJwtMiddleware, async (req, res) => {
   try {
     const userId = res.locals.user.id;
     const user = await getUser(userId);
-    if (!user) throw new AuthError("Пользователь с таким id не найден");
     res.send(getApiResponse(true, { user }, null));
   } catch (err: any) {
     res.send(getApiResponse(false, null, err));

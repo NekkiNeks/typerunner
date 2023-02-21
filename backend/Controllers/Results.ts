@@ -12,6 +12,9 @@ export async function getBestResults(): Promise<Result[]> {
   const result = await Database.result.findMany({
     take: 100,
     orderBy: { value: "desc" },
+    include: {
+      user: true,
+    },
   });
   return result;
 }

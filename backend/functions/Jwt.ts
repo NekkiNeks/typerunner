@@ -29,7 +29,6 @@ export function validateJwtMiddleware(
     res.locals.user = { id: payload.userId };
     next();
   } catch (err: any) {
-    const response = getApiResponse(false, null, err);
-    res.send(response);
+    res.send(getApiResponse(false, null, err));
   }
 }
