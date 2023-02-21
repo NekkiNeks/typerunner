@@ -135,10 +135,16 @@ const typer = ref(new Typer());
     </div>
     <h2>{{ typer.average.toFixed() }} символов/минуту</h2>
     <div class="input" v-if="typer.text.value">
-      <span class="typed" v-for="letter of typer.text.typed">{{ letter }}</span>
-      <span class="untyped" v-for="letter of typer.text.value">{{
-        letter
-      }}</span>
+      <div class="input-wrapper">
+        <span class="typed" v-for="letter of typer.text.typed">{{
+          letter
+        }}</span>
+      </div>
+      <div class="input-wrapper">
+        <span class="untyped" v-for="letter of typer.text.value">{{
+          letter
+        }}</span>
+      </div>
     </div>
 
     <div v-else><Spinner /> Получаем новый текст...</div>
@@ -146,7 +152,7 @@ const typer = ref(new Typer());
   <div v-else><Spinner /> Отправляем результат...</div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .input {
   font-family: monospace;
   line-height: 1.5;
@@ -157,7 +163,11 @@ const typer = ref(new Typer());
   color: #444;
 }
 
-.input .untyped:nth-child(1) {
+.untyped:first-of-type {
   text-decoration: underline;
+}
+
+.input-wrapper {
+  display: inline;
 }
 </style>
