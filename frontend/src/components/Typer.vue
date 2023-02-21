@@ -119,8 +119,12 @@ class Typer {
     this.text.reset();
   }
 }
-
 const typer = ref(new Typer());
+
+const text = ref("");
+setTimeout(() => {
+  text.value = typer.value.text.value || "text";
+}, 2000);
 </script>
 
 <template>
@@ -129,26 +133,28 @@ const typer = ref(new Typer());
       @keypress="typer.handleInput($event)"
       @keydown.esc="typer.reset()"
     />
+    {{ text }}
     <div class="timer">
       <v-icon name="md-timer-outlined" />
       {{ typer.timer.value / 1000 }} c.
     </div>
     <h2>{{ typer.average.toFixed() }} символов/минуту</h2>
     <div class="input" v-if="typer.text.value">
-      <div class="input-wrapper">
-        <span class="typed" v-for="letter of typer.text.typed">{{
-          letter
-        }}</span>
-      </div>
-      <div class="input-wrapper">
-        <span class="untyped" v-for="letter of typer.text.value">{{
-          letter
-        }}</span>
+      <div>
+        <span
+          v-for="(letter, index) in text"
+          :class="{
+            typed: index < typer.text.typed.length,
+            untyped: index > typer.text.typed.length,
+            cursor: index === typer.text.typed.length,
+          }"
+          >{{ letter }}</span
+        >
       </div>
     </div>
-
-    <div v-else><Spinner /> Получаем новый текст...</div>
   </div>
+  <div v-else><Spinner /> Получаем новый текст...</div>
+
   <div v-else><Spinner /> Отправляем результат...</div>
 </template>
 
@@ -163,11 +169,7 @@ const typer = ref(new Typer());
   color: #444;
 }
 
-.untyped:first-of-type {
+.cursor {
   text-decoration: underline;
-}
-
-.input-wrapper {
-  display: inline;
 }
 </style>
