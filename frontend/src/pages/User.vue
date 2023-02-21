@@ -13,5 +13,9 @@ console.log(userStore);
 
 <template>
   <p>this is userpage {{ userStore.login }}</p>
+  <p>userdata:</p>
+  <pre>
+    {{ JSON.stringify(userStore) }}
+  </pre>
   <button @click="logout">Выйти</button>
 </template>

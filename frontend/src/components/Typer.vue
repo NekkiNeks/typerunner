@@ -60,6 +60,7 @@ class Timer {
   }
 
   start() {
+    this.value += 100;
     this.interval = setInterval(() => (this.value += 100), 100);
   }
 
@@ -132,7 +133,7 @@ const typer = ref(new Typer());
       <v-icon name="md-timer-outlined" />
       {{ typer.timer.value / 1000 }} c.
     </div>
-    <h2>{{ typer.average.toFixed(2) }} символов/минуту</h2>
+    <h2>{{ typer.average.toFixed() }} символов/минуту</h2>
     <div class="input" v-if="typer.text.value">
       <span class="typed" v-for="letter of typer.text.typed">{{ letter }}</span>
       <span class="untyped" v-for="letter of typer.text.value">{{

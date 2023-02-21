@@ -2,6 +2,7 @@ import { Router } from "express";
 import { getApiResponse } from "../utils/Format";
 import { getUser } from "../Controllers/User";
 import Database from "../utils/Database";
+import { validateJwtMiddleware } from "../functions/Jwt";
 
 const router = Router();
 
