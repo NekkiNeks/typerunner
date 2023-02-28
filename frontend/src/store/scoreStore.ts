@@ -16,12 +16,14 @@ export const useScoreStore = defineStore("score", {
   state: (): iState => ({ lastScore: null, allScores: [] }),
 
   actions: {
-    async updateScore() {
+    async aUpdateScore() {
       const userStore = useUserStore();
-      const scores = await api.get(`/result/${userStore.id}`);
-      this.allScores = scores.map((item: Result) => item.value);
+      if (userStore.logged) {
+        const scores = await api.get(`/result/${userStore.id}`);
+        this.allScores = scores.map((item: Result) => item.value);
+      }
     },
-    async add(score: number) {
+    async aAdd(score: number) {
       const userStore = useUserStore();
       if (userStore.logged) {
         const data = await api.post("/result/add", { result: score });

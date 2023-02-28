@@ -18,7 +18,7 @@ async function getTextFromDatabase() {
 
 async function sendResultToDatabase(score: number) {
   try {
-    await scoreStore.add(score);
+    await scoreStore.aAdd(Math.floor(score));
   } catch (err: any) {
     console.log("send result to database error", err.message);
   }

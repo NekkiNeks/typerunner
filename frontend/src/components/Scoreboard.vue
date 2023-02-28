@@ -1,13 +1,30 @@
 <script setup lang="ts">
 import { useScoreStore } from "../store/scoreStore";
+import { onMounted, ref } from "vue";
 
-const { lastScore, allScores } = useScoreStore();
+const userStore = useScoreStore();
+const loading = ref(false);
+
+async function fetchData() {
+  loading.value = true;
+  try {
+    await userStore.aUpdateScore();
+  } catch (err: any) {
+    console.log(err);
+  } finally {
+    loading.value = false;
+  }
+}
+
+onMounted(fetchData);
 </script>
 
 <template>
-  <p v-if="lastScore">Последний результат: {{ lastScore }}</p>
+  <p v-if="userStore.lastScore">
+    Последний результат: {{ userStore.lastScore }}
+  </p>
   <ul>
-    <li v-for="score of allScores">{{ score }}</li>
+    <li v-for="score of userStore.allScores">{{ score }}</li>
   </ul>
 </template>
 
