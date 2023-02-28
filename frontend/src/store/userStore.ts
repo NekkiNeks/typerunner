@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import api from "../helpers/api";
+import { useScoreStore } from "./scoreStore";
 
 type iState = {
   id: string | null;
@@ -50,9 +51,12 @@ export const useUserStore = defineStore("user", {
     },
 
     aLogout() {
+      const scoreStore = useScoreStore();
       this.id = null;
       this.login = null;
       this.logged = false;
+      scoreStore.$reset();
+
       localStorage.removeItem("token");
     },
   },
