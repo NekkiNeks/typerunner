@@ -2,7 +2,7 @@ import { User } from "@prisma/client";
 import Database from "../utils/Database";
 import { AuthError } from "../utils/Errors";
 
-export async function getUser(id: string) {
+export async function getUser(id: string): Promise<User> {
   const user = await Database.user.findFirst({
     where: { id },
   });

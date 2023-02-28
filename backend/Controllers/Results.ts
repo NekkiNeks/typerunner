@@ -1,5 +1,9 @@
 import Database from "../utils/Database";
-import { Result } from "@prisma/client";
+import { Result, User } from "@prisma/client";
+
+interface ResultWithUser extends Result {
+  user: Omit<User, "password">;
+}
 
 export async function getResults(userId: string): Promise<Result[]> {
   const results = await Database.result.findMany({
@@ -8,7 +12,7 @@ export async function getResults(userId: string): Promise<Result[]> {
   return results;
 }
 
-export async function getBestResults(): Promise<Result[]> {
+export async function getBestResults(): Promise<ResultWithUser[]> {
   const result = await Database.result.findMany({
     take: 100,
     orderBy: { value: "desc" },
@@ -16,7 +20,15 @@ export async function getBestResults(): Promise<Result[]> {
       user: true,
     },
   });
-  return result;
+
+  // Omit user password from results
+  const filtered = result.map((result) => {
+    const { password, ...userWithoutPass } = result.user;
+    result.user = userWithoutPass as User;
+    return result;
+  });
+
+  return filtered;
 }
 
 export async function addResult(userid: string, value: number) {

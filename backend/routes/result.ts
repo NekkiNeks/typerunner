@@ -4,11 +4,13 @@ import { getBestResults, getResults } from "../Controllers/Results";
 import { getApiResponse } from "../utils/Format";
 import { addResult } from "../Controllers/Results";
 import { ClientError, ServerError } from "../utils/Errors";
+import { exclude } from "../utils/Database";
 const router = Router();
 
 router.get("/best", async (req, res) => {
   try {
     const result = await getBestResults();
+    console.log(result);
     res.send(getApiResponse(true, result, null));
   } catch (err: any) {
     res.send(getApiResponse(false, null, err));
