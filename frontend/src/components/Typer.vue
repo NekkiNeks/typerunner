@@ -66,12 +66,12 @@ async function submitResults() {
 function handleInput(event: KeyboardEvent) {
   if (time.value === 0) startTimer();
 
-  if (inputCounter.value === text.value.length - 1) {
-    submitResults();
-  }
-
   if (event.key === text.value[inputCounter.value]) {
     inputCounter.value++;
+  }
+
+  if (inputCounter.value === text.value.length) {
+    submitResults();
   }
 }
 
