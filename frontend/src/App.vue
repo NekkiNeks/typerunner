@@ -6,6 +6,7 @@ import { ref } from "vue";
 </script>
 
 <template>
+  <notifications />
   <Navbar />
   <router-view></router-view>
 </template>

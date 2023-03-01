@@ -3,9 +3,11 @@ import { reactive, ref } from "vue";
 import { Form, Field, useField } from "vee-validate";
 import { useUserStore } from "../store/userStore";
 import Spinner from "./Spinner.vue";
-
+import { useNotification } from "@kyvg/vue3-notification";
 import { router } from "../router";
 import { ClientError, ServerError } from "../helpers/Errors";
+
+const { notify } = useNotification();
 
 const { aLogin, aRegister } = useUserStore();
 const props = defineProps<{ registration?: boolean }>();
@@ -23,6 +25,12 @@ const fields = reactive({
   password: useField("password", rules.isRequired),
   email: props.registration ? useField("email", rules.isRequired) : null,
 });
+
+function resetFields() {
+  fields.login.resetField();
+  fields.password.resetField();
+  fields.email?.resetField();
+}
 
 async function handleSubmit(e: any) {
   loading.value = true;
@@ -43,11 +51,13 @@ async function handleSubmit(e: any) {
       error.value = "Ошибка при запросе к серверу";
       console.error(err.message);
     } else if (err instanceof ClientError) {
-      error.value = err.message;
+      // error.value = err.message;
+      notify({ text: err.message, type: "error" });
       console.warn("Ошибка клиента: ", err.message);
     } else {
       throw err;
     }
+    resetFields();
   } finally {
     loading.value = false;
   }
@@ -143,7 +153,7 @@ button {
   font-family: monospace;
 
   &:hover::before {
-    content: "test";
+    content: "(!)";
   }
 }
 </style>
