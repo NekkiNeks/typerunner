@@ -14,12 +14,26 @@ type Result = {
 const loading = ref(false);
 const error = ref<string | null>(null);
 const results = ref<Result[]>([]);
+const page = ref(1);
+
+async function prevPage() {
+  if (page.value > 1) {
+    page.value = page.value - 1;
+    fetchData();
+  }
+}
+async function nextPage() {
+  if (page.value < 10) {
+    page.value = page.value + 1;
+    fetchData();
+  }
+}
 
 async function fetchData() {
   try {
     error.value = null;
     loading.value = true;
-    const data = await api.get("/result/best");
+    const data = await api.get(`/result/best?page=${page.value}&per_page=10`);
     console.log(data);
     results.value = data;
     loading.value = false;
@@ -41,8 +55,14 @@ onMounted(() => fetchData());
 
   <div v-else v-for="result in results">
     <div>
-      <pre>{{ JSON.stringify(result.user, null, ) }}</pre>
+      <pre>{{ JSON.stringify(result.user, null) }}</pre>
       <p>{{ result.user.login }} - {{ result.value }}</p>
     </div>
+  </div>
+
+  <div class="paginator">
+    <button @click="prevPage()">prev</button>
+    {{ page }}
+    <button @click="nextPage()">next</button>
   </div>
 </template>
