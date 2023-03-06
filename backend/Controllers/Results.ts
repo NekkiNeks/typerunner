@@ -5,7 +5,15 @@ interface ResultWithUser extends Result {
   user: Omit<User, "password">;
 }
 
-export async function getResults(userId: string): Promise<Result[]> {
+export async function getLastResults(userId: string): Promise<Result[]> {
+  const results = await Database.result.findMany({
+    where: { user_id: userId },
+    take: 10,
+  });
+  return results;
+}
+
+export async function getAllResults(userId: string): Promise<Result[]> {
   const results = await Database.result.findMany({
     where: { user_id: userId },
   });

@@ -19,7 +19,7 @@ export const useScoreStore = defineStore("score", {
     async aUpdateScore() {
       const userStore = useUserStore();
       if (userStore.logged) {
-        const scores = await api.get(`/result/${userStore.id}`);
+        const scores = await api.get(`/result/last`);
         this.allScores = scores.map((item: Result) => item.value);
       }
     },
@@ -31,6 +31,7 @@ export const useScoreStore = defineStore("score", {
       }
       this.lastScore = score;
       this.allScores.push(score);
+      if (this.allScores.length > 10) this.allScores.shift();
     },
   },
 });

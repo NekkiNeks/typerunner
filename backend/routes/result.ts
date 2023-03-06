@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validateJwtMiddleware } from "../functions/Jwt";
-import { getBestResults, getResults } from "../Controllers/Results";
+import { getBestResults, getLastResults } from "../Controllers/Results";
 import { getApiResponse } from "../utils/Format";
 import { addResult } from "../Controllers/Results";
 import { ClientError, ServerError } from "../utils/Errors";
@@ -17,9 +17,10 @@ router.get("/best", async (req, res) => {
   }
 });
 
-router.get("/:userid", async (req, res) => {
+router.get("/last", validateJwtMiddleware, async (req, res) => {
   try {
-    const result = await getResults(req.params.userid);
+    let userId = res.locals.user.id;
+    const result = await getLastResults(userId);
     res.send(getApiResponse(true, result, null));
   } catch (err: any) {
     res.send(getApiResponse(false, null, err));
