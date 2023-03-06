@@ -72,7 +72,7 @@ class Logger {
         }
       }
       console.log(
-        `[${moment().format("HH:mm:SS.sss")}] ${header} (${this.name}): ${
+        `[${moment().format("HH:mm:ss.SSS")}] ${header} (${this.name}): ${
           config.logger.color ? chalk.cyan(message) : message
         }`
       );

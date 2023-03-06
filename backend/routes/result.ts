@@ -1,6 +1,10 @@
 import { Router } from "express";
 import { validateJwtMiddleware } from "../functions/Jwt";
-import { getBestResults, getLastResults } from "../Controllers/Results";
+import {
+  getBestResults,
+  getBestResultsPaginated,
+  getLastResults,
+} from "../Controllers/Results";
 import { getApiResponse } from "../utils/Format";
 import { addResult } from "../Controllers/Results";
 import { ClientError, ServerError } from "../utils/Errors";
@@ -8,8 +12,10 @@ import { exclude } from "../utils/Database";
 const router = Router();
 
 router.get("/best", async (req, res) => {
+  const per_page = req.queryParamToNumber("per_page");
+  const page = req.queryParamToNumber("page");
   try {
-    const result = await getBestResults();
+    const result = await getBestResultsPaginated(per_page, page);
     res.send(getApiResponse(true, result, null));
   } catch (err: any) {
     res.send(getApiResponse(false, null, err));
