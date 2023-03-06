@@ -27,6 +27,11 @@ export async function getBestResults(): Promise<ResultWithUser[]> {
     include: {
       user: true,
     },
+    where: {
+      user: {
+        verified: true,
+      },
+    },
   });
 
   // Omit user password from results
@@ -51,6 +56,11 @@ export async function getBestResultsPaginated(
     orderBy: { value: "desc" },
     include: {
       user: true,
+    },
+    where: {
+      user: {
+        verified: true,
+      },
     },
   });
 
