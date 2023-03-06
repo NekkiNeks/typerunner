@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { GlobalEvents } from "vue-global-events";
 import { useScoreStore } from "../store/scoreStore";
-import { ref, reactive, onMounted, watch } from "vue";
+import { ref, onMounted, watch } from "vue";
 
 import Spinner from "./Spinner.vue";
 import { MdTimetoleave } from "oh-vue-icons/icons";
@@ -29,6 +29,7 @@ const text = ref("");
 const loading = ref(false);
 const inputCounter = ref(0);
 const average = ref(0);
+const error = ref<string | null>(null);
 
 watch(time, (newValue) => {
   average.value = newValue ? (inputCounter.value / newValue) * 60000 : 0;
@@ -51,8 +52,16 @@ function stopTimer() {
 
 // typer
 async function fetchText() {
-  const data = await getTextFromDatabase();
-  text.value = data;
+  error.value = null;
+  loading.value = true;
+  try {
+    const data = await getTextFromDatabase();
+    text.value = data;
+  } catch (err: any) {
+    error.value = "Ошибка при получении текста с сервера.";
+  } finally {
+    loading.value = false;
+  }
 }
 
 async function submitResults() {
@@ -81,13 +90,16 @@ function resetInput() {
 }
 
 onMounted(() => {
-  loading.value = true;
-  fetchText().then(() => (loading.value = false));
+  fetchText();
 });
 </script>
 
 <template>
   <div v-if="loading" class="loader">loading...</div>
+
+  <div v-else-if="error">
+    {{ error }} <button @click="fetchText()">Перезагрузить</button>
+  </div>
 
   <div v-else>
     <div class="input">

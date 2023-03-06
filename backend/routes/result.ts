@@ -10,7 +10,6 @@ const router = Router();
 router.get("/best", async (req, res) => {
   try {
     const result = await getBestResults();
-    console.log(result);
     res.send(getApiResponse(true, result, null));
   } catch (err: any) {
     res.send(getApiResponse(false, null, err));

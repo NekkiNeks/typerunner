@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ServerError } from "../utils/Errors";
 
 export async function getText() {
   try {
@@ -9,6 +10,6 @@ export async function getText() {
       throw new Error("Ошибка обращения к стороннему API");
     return data.data.text;
   } catch (err: any) {
-    throw err;
+    throw new ServerError(err.message);
   }
 }
