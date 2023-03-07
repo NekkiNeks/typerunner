@@ -108,8 +108,10 @@ onMounted(() => {
         @keydown.esc="resetInput()"
       />
 
-      time: {{ (time / 1000).toFixed(1) }} <br />
-      avg: {{ average.toFixed() }} <br />
+      <div class="statistics-container">
+        <div class="time">Время: {{ (time / 1000).toFixed(1) }} c.</div>
+        <div class="average">СВМ: {{ average.toFixed() }}</div>
+      </div>
 
       <span
         v-for="(letter, index) in text"
@@ -126,9 +128,18 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .input {
+  margin: auto;
+  width: 80%;
+  text-align: center;
   font-family: monospace;
   line-height: 1.5;
   font-size: 26px;
+}
+
+.statistics-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 30px;
 }
 
 .typed {

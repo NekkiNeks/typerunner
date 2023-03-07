@@ -23,9 +23,17 @@ onMounted(fetchData);
   <p v-if="userStore.lastScore">
     Последний результат: {{ userStore.lastScore }}
   </p>
-  <ul>
+  <ul class="results-list">
     <li v-for="score of userStore.allScores">{{ score }}</li>
   </ul>
 </template>
 
-<style></style>
+<style lang="scss">
+.results-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+
+  margin-bottom: 3rem;
+}
+</style>

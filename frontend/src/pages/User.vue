@@ -12,7 +12,7 @@ console.log(userStore);
 </script>
 
 <template>
-  <p>this is userpage {{ userStore.login }}</p>
+  <h1>@{{ userStore.login }}</h1>
   <p>userdata:</p>
   <pre>
     {{ JSON.stringify(userStore) }}

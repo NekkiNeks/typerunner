@@ -9,17 +9,15 @@ const { login, logged } = storeToRefs(userStore);
   <div class="container">
     <p class="logo">TYPERUNNER</p>
     <nav class="nav">
-      <router-link to="/">Главная</router-link>
-      <router-link to="/scores">Таблица лидеров</router-link>
+      <router-link to="/">/Главная</router-link>
+      <router-link to="/scores">/Таблица лидеров</router-link>
       <template v-if="logged">
-        <router-link to="/user"
-          ><v-icon name="ri-user-3-fill" />{{ login }}</router-link
-        >
+        <router-link to="/user">@{{ login }}</router-link>
       </template>
 
       <template v-else>
-        <router-link to="/login">Логин</router-link>
-        <router-link to="/register">Регистрация</router-link>
+        <router-link to="/login">/Логин</router-link>
+        <router-link to="/register">/Регистрация</router-link>
       </template>
     </nav>
   </div>
@@ -39,6 +37,7 @@ nav {
 
   a {
     margin-left: 1rem;
+    color: #eee;
   }
 }
 

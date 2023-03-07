@@ -8,7 +8,13 @@ import { ref } from "vue";
 <template>
   <notifications />
   <Navbar />
-  <router-view></router-view>
+  <main>
+    <router-view></router-view>
+  </main>
 </template>
 
-<style scoped></style>
+<style lang="scss">
+main {
+  padding: 1rem;
+}
+</style>

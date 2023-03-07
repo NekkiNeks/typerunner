@@ -55,14 +55,13 @@ onMounted(() => fetchData());
 
   <div v-else v-for="result in results">
     <div>
-      <pre>{{ JSON.stringify(result.user, null) }}</pre>
       <p>{{ result.user.login }} - {{ result.value }}</p>
     </div>
   </div>
 
   <div class="paginator">
-    <button @click="prevPage()">prev</button>
+    <button @click="prevPage()">{{ "<-" }}</button>
     {{ page }}
-    <button @click="nextPage()">next</button>
+    <button @click="nextPage()">{{ "->" }}</button>
   </div>
 </template>

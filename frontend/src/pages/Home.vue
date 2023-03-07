@@ -4,6 +4,10 @@ import Scoreboard from "../components/Scoreboard.vue";
 </script>
 
 <template>
-  <Scoreboard />
-  <Typer />
+  <!-- <Scoreboard /> -->
+  <div class="typer-container">
+    <Typer />
+  </div>
 </template>
+
+<style lang="scss"></style>
