@@ -54,6 +54,7 @@ export async function getBestResultsPaginated(
     skip,
     take: pageSize,
     orderBy: { value: "desc" },
+    distinct: ["user_id"],
     include: {
       user: true,
     },
