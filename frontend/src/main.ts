@@ -8,8 +8,8 @@ import Notifications from "@kyvg/vue3-notification";
 
 import { MdTimerOutlined } from "oh-vue-icons/icons";
 import { PrSpinner } from "oh-vue-icons/icons";
-import { RiUser3Fill } from "oh-vue-icons/icons";
-addIcons(MdTimerOutlined, PrSpinner, RiUser3Fill);
+import { RiUser3Fill, LaGithub } from "oh-vue-icons/icons";
+addIcons(MdTimerOutlined, PrSpinner, RiUser3Fill, LaGithub);
 
 import "./style.css";
 

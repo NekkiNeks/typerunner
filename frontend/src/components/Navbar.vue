@@ -7,7 +7,7 @@ const { login, logged } = storeToRefs(userStore);
 
 <template>
   <header class="container">
-    <p class="logo">TYPERUNNER</p>
+    <p class="logo">🌪️⌨️ TYPERUNNER</p>
     <nav class="nav">
       <router-link to="/">/Главная</router-link>
       <router-link to="/scores">/Таблица лидеров</router-link>

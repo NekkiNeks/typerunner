@@ -60,11 +60,11 @@ onMounted(() => fetchData());
 
   <div v-else class="container">
     <div v-for="result in results">
-      <div>
+      <div class="result">
         <p>
           @{{ result.user.login }}
           {{ result.user.login === userStore.login ? "(Это вы)" : "" }} -
-          {{ result.value }}
+          {{ result.value }} СВМ
         </p>
       </div>
     </div>
@@ -81,5 +81,13 @@ onMounted(() => fetchData());
 .container {
   width: 100%;
   height: 100%;
+}
+
+.result {
+  width: 100%;
+  background-color: #343434;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
 }
 </style>
