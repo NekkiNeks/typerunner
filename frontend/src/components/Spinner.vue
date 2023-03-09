@@ -1,10 +1,10 @@
 <script setup lang="ts"></script>
 
 <template>
-  <v-icon class="icon" name="pr-spinner" />
+  <v-icon class="icon" name="pr-spinner" scale="3" />
 </template>
 
-<style>
+<style scoped>
 .icon {
   animation-name: spin;
   animation-duration: 600ms;

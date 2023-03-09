@@ -95,7 +95,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="loading" class="loader">loading...</div>
+  <div v-if="loading" class="loader">
+    <Spinner />
+  </div>
 
   <div v-else-if="error">
     {{ error }} <button @click="fetchText()">Перезагрузить</button>

@@ -1,20 +1,30 @@
 <script setup lang="ts">
-import Typer from "./components/Typer.vue";
-import Scoreboard from "./components/Scoreboard.vue";
 import Navbar from "./components/Navbar.vue";
-import { ref } from "vue";
 </script>
 
 <template>
   <notifications />
-  <Navbar />
-  <main>
-    <router-view></router-view>
-  </main>
+  <div class="wrapper">
+    <Navbar />
+    <main>
+      <router-view></router-view>
+    </main>
+  </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
+.wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  // flex-wrap: wrap;
+}
+
 main {
   padding: 1rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

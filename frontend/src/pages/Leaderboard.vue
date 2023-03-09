@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { onMounted } from "vue";
+import Spinner from "../components/Spinner.vue";
 import api from "../helpers/api";
 import { ClientError, ServerError } from "../helpers/Errors";
+import { useUserStore } from "../store/userStore";
 
 type Result = {
   value: number;
@@ -11,6 +13,7 @@ type Result = {
   };
 };
 
+const userStore = useUserStore();
 const loading = ref(false);
 const error = ref<string | null>(null);
 const results = ref<Result[]>([]);
@@ -51,17 +54,32 @@ onMounted(() => fetchData());
 </script>
 <template>
   <div v-if="error">{{ error }}</div>
-  <div v-if="loading">Loading</div>
+  <div v-if="loading">
+    <Spinner />
+  </div>
 
-  <div v-else v-for="result in results">
-    <div>
-      <p>{{ result.user.login }} - {{ result.value }}</p>
+  <div v-else class="container">
+    <div v-for="result in results">
+      <div>
+        <p>
+          @{{ result.user.login }}
+          {{ result.user.login === userStore.login ? "(Это вы)" : "" }} -
+          {{ result.value }}
+        </p>
+      </div>
+    </div>
+
+    <div class="paginator">
+      <button @click="prevPage()">{{ "<-" }}</button>
+      {{ page }}
+      <button @click="nextPage()">{{ "->" }}</button>
     </div>
   </div>
-
-  <div class="paginator">
-    <button @click="prevPage()">{{ "<-" }}</button>
-    {{ page }}
-    <button @click="nextPage()">{{ "->" }}</button>
-  </div>
 </template>
+
+<style scoped lang="scss">
+.container {
+  width: 100%;
+  height: 100%;
+}
+</style>

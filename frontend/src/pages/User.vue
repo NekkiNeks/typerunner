@@ -12,10 +12,15 @@ console.log(userStore);
 </script>
 
 <template>
-  <h1>@{{ userStore.login }}</h1>
-  <p>userdata:</p>
-  <pre>
-    {{ JSON.stringify(userStore) }}
-  </pre>
-  <button @click="logout">Выйти</button>
+  <div class="user-container">
+    <h1>@{{ userStore.login }}</h1>
+    <button @click="logout">Выйти</button>
+  </div>
 </template>
+
+<style scoped lang="scss">
+.user-container {
+  display: flex;
+  flex-direction: column;
+}
+</style>

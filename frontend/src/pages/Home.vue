@@ -4,10 +4,18 @@ import Scoreboard from "../components/Scoreboard.vue";
 </script>
 
 <template>
-  <!-- <Scoreboard /> -->
-  <div class="typer-container">
+  <div class="container">
+    <!-- <Scoreboard /> -->
     <Typer />
   </div>
 </template>
 
-<style lang="scss"></style>
+<style scoped lang="scss">
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

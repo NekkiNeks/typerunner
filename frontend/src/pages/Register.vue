@@ -2,5 +2,17 @@
 import Form from "../components/Form.vue";
 </script>
 <template>
-  <Form registration />
+  <div class="container">
+    <Form registration />
+  </div>
 </template>
+
+<style scoped lang="scss">
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

@@ -6,7 +6,7 @@ const { login, logged } = storeToRefs(userStore);
 </script>
 
 <template>
-  <div class="container">
+  <header class="container">
     <p class="logo">TYPERUNNER</p>
     <nav class="nav">
       <router-link to="/">/Главная</router-link>
@@ -20,15 +20,16 @@ const { login, logged } = storeToRefs(userStore);
         <router-link to="/register">/Регистрация</router-link>
       </template>
     </nav>
-  </div>
+  </header>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .container {
   background-color: #222;
   padding: 1rem;
   margin-top: 0;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }
 

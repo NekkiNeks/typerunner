@@ -12,7 +12,6 @@ const { notify } = useNotification();
 const { aLogin, aRegister } = useUserStore();
 const props = defineProps<{ registration?: boolean }>();
 const loading = ref(false);
-const error = ref("");
 
 const rules = {
   isRequired: (value: any) => {
@@ -34,7 +33,6 @@ function resetFields() {
 
 async function handleSubmit(e: any) {
   loading.value = true;
-  error.value = "";
 
   try {
     if (props.registration) {
@@ -48,10 +46,9 @@ async function handleSubmit(e: any) {
     }
   } catch (err) {
     if (err instanceof ServerError) {
-      error.value = "Ошибка при запросе к серверу";
+      notify({ text: "Ошибка при запросе к серверу", type: "error" });
       console.error(err.message);
     } else if (err instanceof ClientError) {
-      // error.value = err.message;
       notify({ text: err.message, type: "error" });
       console.warn("Ошибка клиента: ", err.message);
     } else {
@@ -65,10 +62,11 @@ async function handleSubmit(e: any) {
 </script>
 
 <template>
-  <div v-if="!loading" class="form-container">
-    <div v-if="error" class="error-container">
-      {{ error }}
-    </div>
+  <div v-if="loading">
+    <Spinner />
+  </div>
+
+  <div v-else class="form-container">
     <Form @submit="handleSubmit" autocomplete="off">
       <div class="email-container" v-if="fields.email">
         <Field
@@ -77,6 +75,8 @@ async function handleSubmit(e: any) {
           placeholder="Почтовый ящик"
           v-model="fields.email.value"
         />
+        <br />
+        <span class="error">{{ fields.email.errorMessage }}</span>
       </div>
       <div class="login-container">
         <Field
@@ -85,6 +85,7 @@ async function handleSubmit(e: any) {
           placeholder="Логин"
           v-model="fields.login.value"
         />
+        <br />
         <span class="error">{{ fields.login.errorMessage }}</span>
       </div>
       <div class="password-container">
@@ -95,14 +96,12 @@ async function handleSubmit(e: any) {
           placeholder="Пароль"
           v-model="fields.password.value"
         />
+        <br />
         <span class="error">{{ fields.password.errorMessage }}</span>
       </div>
 
-      <button class="submit">-></button>
+      <button class="submit">{{ "->" }}</button>
     </Form>
-  </div>
-  <div v-else class="loading-container">
-    <Spinner />
   </div>
 </template>
 
@@ -143,17 +142,9 @@ button {
   }
 }
 
-.error-container {
-  color: rgb(190, 50, 50);
-}
-
 .error {
   color: rgb(190, 50, 50);
   font-size: 14px;
   font-family: monospace;
-
-  &:hover::before {
-    content: "(!)";
-  }
 }
 </style>
