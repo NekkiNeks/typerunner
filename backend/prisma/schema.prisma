@@ -11,17 +11,20 @@ datasource db {
 }
 
 model User {
-  id       String   @id @default(uuid())
-  login    String   @unique
-  password String
-  email    String
-  verified Boolean  @default(false)
-  results  Result[]
+  id         String   @id @default(uuid())
+  login      String   @unique
+  password   String
+  email      String
+  verified   Boolean  @default(false)
+  results    Result[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model Result {
-  id      String @id @default(uuid())
-  user    User   @relation(fields: [user_id], references: [id])
-  user_id String
-  value   Int
+  id         String   @id @default(uuid())
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    String
+  value      Int
+  created_at DateTime @default(now())
 }

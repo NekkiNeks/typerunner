@@ -11,6 +11,7 @@ type Result = {
   user: {
     login: string;
   };
+  created_at: string;
 };
 
 const userStore = useUserStore();
@@ -64,7 +65,7 @@ onMounted(() => fetchData());
         <p>
           @{{ result.user.login }}
           {{ result.user.login === userStore.login ? "(Это вы)" : "" }} -
-          {{ result.value }} СВМ
+          {{ result.value }} СВМ Дата: {{ result.created_at }}
         </p>
       </div>
     </div>
