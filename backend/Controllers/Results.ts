@@ -50,6 +50,10 @@ export async function getBestResultsPaginated(
 ): Promise<ResultWithUser[]> {
   const skip = pageSize * (pageNumber - 1);
 
+  const date = new Date();
+  date.setDate(date.getDate() - 1);
+  console.log(date.toISOString());
+
   const result = await Database.result.findMany({
     skip,
     take: pageSize,
@@ -59,8 +63,13 @@ export async function getBestResultsPaginated(
       user: true,
     },
     where: {
-      user: {
-        verified: true,
+      AND: {
+        user: {
+          verified: true,
+        },
+        created_at: {
+          gt: date.toISOString(),
+        },
       },
     },
   });
