@@ -5,6 +5,7 @@ import Spinner from "../components/Spinner.vue";
 import api from "../helpers/api";
 import { ClientError, ServerError } from "../helpers/Errors";
 import { useUserStore } from "../store/userStore";
+import dayjs from "../helpers/dayjs";
 
 type Result = {
   value: number;
@@ -65,7 +66,8 @@ onMounted(() => fetchData());
         <p>
           @{{ result.user.login }}
           {{ result.user.login === userStore.login ? "(Это вы)" : "" }} -
-          {{ result.value }} СВМ Дата: {{ result.created_at }}
+          {{ result.value }} СВМ Дата:
+          {{ dayjs(result.created_at).fromNow() }}
         </p>
       </div>
     </div>
