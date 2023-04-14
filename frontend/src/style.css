@@ -12,6 +12,20 @@
   padding: 0;
 }
 
+button {
+  background-color: inherit;
+  border: none;
+  color: #888;
+  font-family: monospace;
+  cursor: pointer;
+  outline: none;
+}
+
+button:hover,
+button:focus {
+  color: #fff;
+}
+
 .custom-notification {
   background-color: transparent;
   padding: 0.5rem;

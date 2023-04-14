@@ -26,15 +26,5 @@ console.log(userStore);
 
 button {
   font-size: 20px;
-  background-color: inherit;
-  border: none;
-  color: #888;
-  font-family: monospace;
-  outline: none;
-
-  &:hover,
-  &:focus {
-    color: #fff;
-  }
 }
 </style>

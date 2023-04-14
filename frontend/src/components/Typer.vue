@@ -99,8 +99,9 @@ onMounted(() => {
     <Spinner />
   </div>
 
-  <div v-else-if="error">
-    {{ error }} <button @click="fetchText()">Перезагрузить</button>
+  <div v-else-if="error" class="error">
+    <p>{{ error }}</p>
+    <button @click="fetchText()">Попробовать снова</button>
   </div>
 
   <div v-else>
@@ -150,5 +151,14 @@ onMounted(() => {
 
 .cursor {
   text-decoration: underline;
+}
+
+.error {
+  font-size: 20px;
+  text-align: center;
+
+  button {
+    font-size: 20px;
+  }
 }
 </style>
