@@ -113,7 +113,7 @@ onMounted(() => {
 
       <div class="statistics-container">
         <div class="time">Время: {{ (time / 1000).toFixed(1) }} c.</div>
-        <div class="average">СВМ: {{ average.toFixed() }}</div>
+        <div class="average">{{ average.toFixed() }} символов в минуту</div>
       </div>
 
       <span

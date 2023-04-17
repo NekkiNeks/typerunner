@@ -20,20 +20,32 @@ onMounted(fetchData);
 </script>
 
 <template>
-  <p v-if="userStore.lastScore">
-    Последний результат: {{ userStore.lastScore }}
-  </p>
-  <ul class="results-list">
-    <li v-for="score of userStore.allScores">{{ score }}</li>
-  </ul>
+  <div class="score-container">
+    <p v-if="userStore.lastScore" class="last-score">
+      {{ userStore.lastScore }} СВМ
+    </p>
+    <ul class="results-list">
+      <li v-for="score of userStore.lastScores">{{ score }}</li>
+    </ul>
+  </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
+.score-container {
+  padding: 1rem;
+  text-align: right;
+}
+.last-score {
+  font-size: 40px;
+  margin-bottom: 1rem;
+}
+
 .results-list {
   list-style: none;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
 
-  margin-bottom: 3rem;
+  background: -webkit-linear-gradient(#aaa, #333);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 </style>

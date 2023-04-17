@@ -8,12 +8,11 @@ type Result = {
 };
 
 type iState = {
-  lastScore: null | number;
   allScores: number[];
 };
 
 export const useScoreStore = defineStore("score", {
-  state: (): iState => ({ lastScore: null, allScores: [] }),
+  state: (): iState => ({ allScores: [] }),
 
   actions: {
     async aUpdateScore() {
@@ -29,9 +28,17 @@ export const useScoreStore = defineStore("score", {
         const data = await api.post("/result/add", { result: score });
         console.log(data, " отправлен на сервер");
       }
-      this.lastScore = score;
       this.allScores.push(score);
       if (this.allScores.length > 10) this.allScores.shift();
+    },
+  },
+  getters: {
+    lastScores(state) {
+      return state.allScores.slice(0, state.allScores.length - 1).reverse();
+    },
+    lastScore(state) {
+      const lastIndex = state.allScores.length - 1;
+      return state.allScores[lastIndex];
     },
   },
 });

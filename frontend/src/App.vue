@@ -46,7 +46,7 @@ import Navbar from "./components/Navbar.vue";
 }
 
 main {
-  padding: 1rem;
+  position: relative;
   height: 100%;
   display: flex;
   align-items: center;
