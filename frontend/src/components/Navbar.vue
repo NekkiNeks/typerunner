@@ -6,7 +6,7 @@ const { login, logged } = storeToRefs(userStore);
 </script>
 
 <template>
-  <header class="container">
+  <header class="navbar-container">
     <p class="logo">🌪️⌨️ TYPERUNNER</p>
     <nav class="nav">
       <router-link to="/">/Главная</router-link>
@@ -24,7 +24,7 @@ const { login, logged } = storeToRefs(userStore);
 </template>
 
 <style lang="scss" scoped>
-.container {
+.navbar-container {
   background-color: #222;
   padding: 1rem;
   margin-top: 0;
@@ -45,5 +45,11 @@ nav {
 .logo {
   margin: 0;
   font-size: 20px;
+}
+
+@media all and (display-mode: fullscreen) {
+  .navbar-container {
+    display: none;
+  }
 }
 </style>

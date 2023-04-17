@@ -48,6 +48,12 @@ button:focus {
   color: #bcbe32;
 }
 
+@media all and (display-mode: fullscreen) {
+  .gitlink {
+    display: none;
+  }
+}
+
 /* @media (prefers-color-scheme: light) {
 
 } */
