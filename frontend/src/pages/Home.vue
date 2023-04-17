@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Typer from "../components/Typer.vue";
 import Scoreboard from "../components/Scoreboard.vue";
+import Icons from "../components/Icons.vue";
 </script>
 
 <template>
@@ -10,6 +11,8 @@ import Scoreboard from "../components/Scoreboard.vue";
   <div class="container">
     <Typer />
   </div>
+
+  <div class="icons"><Icons /></div>
 </template>
 
 <style scoped lang="scss">
@@ -27,5 +30,10 @@ import Scoreboard from "../components/Scoreboard.vue";
   right: 0;
   z-index: 10;
   position: absolute;
+}
+
+.icons {
+  position: absolute;
+  bottom: 50px;
 }
 </style>
