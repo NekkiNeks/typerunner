@@ -1,7 +1,11 @@
 import { Router } from "express";
 import { getApiResponse } from "../utils/Format";
 
-import { loginUser, registerUser } from "../Controllers/Auth";
+import {
+  loginUser,
+  registerUser,
+  verifyUserByEmailLink,
+} from "../Controllers/Auth";
 import { getUser } from "../Controllers/User";
 
 import { createJwt, validateJwtMiddleware } from "../functions/Jwt";
@@ -42,6 +46,15 @@ router.post("/token", validateJwtMiddleware, async (req, res) => {
   } catch (err: any) {
     res.send(getApiResponse(false, null, err));
   }
+});
+
+router.get("/verify", async (req, res) => {
+  try {
+    const userId = req.query.userId;
+    if (!userId) throw new Error("Не был передан id пользователя");
+    const user = await verifyUserByEmailLink(userId as string);
+    res.send(`Пользователь ${user.login} подтвержден`);
+  } catch (err: any) {}
 });
 
 // router.delete("/", validateJwtMiddleware, async (req, res) => {

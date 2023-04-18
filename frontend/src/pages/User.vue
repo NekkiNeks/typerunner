@@ -8,12 +8,15 @@ function logout() {
   router.push({ path: "/login" });
 }
 
-console.log(userStore);
+console.log(userStore.info);
 </script>
 
 <template>
   <div class="user-container">
-    <h1>@{{ userStore.login }}</h1>
+    <h1>
+      @{{ userStore.login }}
+      <span v-if="userStore.info.verified" title="Подтверждено!">👌</span>
+    </h1>
     <button @click="logout">Выйти</button>
   </div>
 </template>

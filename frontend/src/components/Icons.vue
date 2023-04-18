@@ -3,11 +3,11 @@
 <template>
   <div class="icons-container">
     <div>
-      <img src="../../public/esc.svg" alt="" />
+      <img src="/esc.svg" alt="" />
       <p>Перезапустить</p>
     </div>
     <div>
-      <img src="../../public/f11.svg" alt="" />
+      <img src="/f11.svg" alt="" />
       <p>Дзен режим</p>
     </div>
   </div>

@@ -1,23 +1,26 @@
 import { defineStore } from "pinia";
 import api from "../helpers/api";
 import { useScoreStore } from "./scoreStore";
+import { LaTintSlashSolid } from "oh-vue-icons/icons";
 
 type iState = {
   id: string | null;
   login: string | null;
   logged: boolean;
+  info: Record<string, any>;
 };
 
 type loginResponse = {
   user: {
     id: string;
     login: string;
+    verified: boolean;
   };
   token: string;
 };
 
 export const useUserStore = defineStore("user", {
-  state: (): iState => ({ id: null, login: null, logged: false }),
+  state: (): iState => ({ id: null, login: null, logged: false, info: {} }),
 
   actions: {
     async aLogin(login: string, password: string) {
@@ -30,6 +33,7 @@ export const useUserStore = defineStore("user", {
       this.id = data.user.id;
       localStorage.setItem("token", data.token);
       this.logged = true;
+      this.info.verified = data.user.verified;
     },
     async aRegister(login: string, password: string, email: string) {
       const data = await api.post<loginResponse>("/auth/register", {
@@ -48,6 +52,7 @@ export const useUserStore = defineStore("user", {
       this.login = data.user.login;
       this.id = data.user.id;
       this.logged = true;
+      this.info.verified = data.user.verified;
     },
 
     aLogout() {
@@ -55,6 +60,7 @@ export const useUserStore = defineStore("user", {
       this.id = null;
       this.login = null;
       this.logged = false;
+      this.info = {};
       scoreStore.$reset();
 
       localStorage.removeItem("token");

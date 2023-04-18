@@ -9,6 +9,12 @@ export default {
   files: {
     uploadFolder: "./uploads",
   },
+  mailer: {
+    hostSMTP: "smtp.rambler.ru",
+    port: 465,
+    login: "typerunner@rambler.ru",
+    password: "Typerunner123",
+  },
   logger: {
     folder: "./log",
     console: true,
