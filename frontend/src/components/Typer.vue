@@ -4,7 +4,6 @@ import { useScoreStore } from "../store/scoreStore";
 import { ref, onMounted, watch } from "vue";
 
 import Spinner from "./Spinner.vue";
-import { MdTimetoleave } from "oh-vue-icons/icons";
 import api from "../helpers/api";
 
 const scoreStore = useScoreStore();

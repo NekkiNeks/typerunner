@@ -2,9 +2,14 @@
 import Typer from "../components/Typer.vue";
 import Scoreboard from "../components/Scoreboard.vue";
 import Icons from "../components/Icons.vue";
+import Clock from "../components/Clock.vue";
 </script>
 
 <template>
+  <div class="clock">
+    <Clock />
+  </div>
+
   <div class="scoreboard">
     <Scoreboard />
   </div>
@@ -23,6 +28,19 @@ import Icons from "../components/Icons.vue";
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.clock {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+
+  @media all and (display-mode: fullscreen) {
+    & {
+      display: block;
+    }
+  }
 }
 
 .scoreboard {
