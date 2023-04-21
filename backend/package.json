@@ -1,7 +1,7 @@
 {
   "name": "typerunner-backend",
   "version": "0.0.1",
-  "description": "Серверная часть приложения 35mm",
+  "description": "backend part of typerunner",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.ts"
@@ -23,11 +23,11 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
+    "moment": "^2.29.4",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.1",
     "nodemon": "^2.0.20",
     "pg": "^8.8.0",
-    "sequelize": "^6.28.0",
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
