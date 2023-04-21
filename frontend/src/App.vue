@@ -14,7 +14,8 @@ import Navbar from "./components/Navbar.vue";
       <router-view></router-view>
     </main>
     <a href="https://github.com/nekkineks/typerunner" class="gitlink">
-      <v-icon class="icon" name="la-github" scale="2" fill="#242424" />
+      <img class="icon" src="/github.svg" />
+      <!-- <v-icon class="icon" name="la-github" scale="2" fill="#242424" /> -->
     </a>
   </div>
 </template>
@@ -39,8 +40,8 @@ import Navbar from "./components/Navbar.vue";
 
   .icon {
     position: absolute;
-    bottom: 8px;
-    left: 43px;
+    bottom: 2px;
+    left: 38px;
     transform: rotate(135deg);
   }
 }
