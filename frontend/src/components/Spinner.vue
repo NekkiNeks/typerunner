@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <v-icon class="icon" name="pr-spinner" scale="3" />
+  <img class="icon" src="/spinner.svg" />
 </template>
 
 <style scoped>
