@@ -1,6 +1,5 @@
 import http from "http";
 import https from "https";
-import fs from "fs";
 import config from "../config";
 import Express from "express";
 import Logger from "./Logger";

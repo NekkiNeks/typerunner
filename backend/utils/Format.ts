@@ -31,5 +31,6 @@ export function getApiResponse(
   if (error instanceof ClientError) {
     return { success, data, error: { message: error.message, code: 1 } };
   }
+  logger.warn(`Необработанная ошибка: ${error}`);
   return { success, data, error };
 }

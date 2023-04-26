@@ -27,7 +27,7 @@ router.beforeEach(async (to, from) => {
   const token = localStorage.getItem("token");
   if (!logged && token) {
     try {
-      await aVerificateByToken(token);
+      await aVerificateByToken();
     } catch (err: any) {
       console.log("Ошибка аутентификации по токену.");
       localStorage.removeItem("token");

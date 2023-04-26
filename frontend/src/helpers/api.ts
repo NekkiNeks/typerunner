@@ -11,16 +11,14 @@ interface iResponse<T> {
   error: ErrorType | null;
 }
 
-import config from "../config";
-
 async function get<T = any>(url: string): Promise<T> {
-  console.log(url);
+  console.log(import.meta.env.VITE_BACKEND_ADDRESS);
   const headers = new Headers();
   const token = localStorage.getItem("token");
   if (token) headers.append("authorization", `Bearer ${token}`);
   headers.append("Content-Type", "Application/json");
 
-  const response = await fetch(config.backendUrl + url, {
+  const response = await fetch(import.meta.env.VITE_BACKEND_ADDRESS + url, {
     method: "GET",
     headers: headers,
   });
@@ -48,7 +46,7 @@ async function post<T = any>(url: string, body: any): Promise<T> {
   if (token) headers.append("authorization", `Bearer ${token}`);
   headers.append("Content-Type", "Application/json");
 
-  const response = await fetch(config.backendUrl + url, {
+  const response = await fetch(import.meta.env.VITE_BACKEND_ADDRESS + url, {
     method: "POST",
     body: JSON.stringify(body),
     headers: headers,

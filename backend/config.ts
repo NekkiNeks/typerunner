@@ -1,19 +1,22 @@
+require("dotenv").config({ path: "/.env" });
+const env = process.env as { [key: string]: any };
+
 export default {
   server: {
-    host: "10.0.0.213",
-    port: 4000,
+    host: env.SERVER_HOST || "localhost",
+    port: env.SERVER_PORT || 4000,
   },
   jwt: {
-    secret: "mySecretKeyForJwt",
+    secret: env.JWT_SECRET || "default",
   },
   files: {
     uploadFolder: "./uploads",
   },
   mailer: {
-    hostSMTP: "smtp.rambler.ru",
-    port: 465,
-    login: "typerunner@rambler.ru",
-    password: "Typerunner123",
+    host: env.MAILER_SMTP_ADDRESS,
+    port: env.MAILER_SMTP_PORT,
+    login: env.MAILER_LOGIN,
+    password: env.MAILER_PASSWORD,
   },
   logger: {
     folder: "./log",

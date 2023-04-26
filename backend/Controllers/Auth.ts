@@ -29,7 +29,7 @@ async function sendVerifyLinkToEmail(email: string, id: string) {
   const text = `Добро пожаловать в typerunner 🎉\n Чтобы подтвердить свой аккаунт перейдите по ссылке: \n${link}`;
 
   const transpotrer = nodemailer.createTransport({
-    host: config.mailer.hostSMTP,
+    host: config.mailer.host,
     port: config.mailer.port,
     secure: true,
     auth: {

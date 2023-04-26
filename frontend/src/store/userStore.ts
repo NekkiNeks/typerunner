@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import api from "../helpers/api";
 import { useScoreStore } from "./scoreStore";
-import { LaTintSlashSolid } from "oh-vue-icons/icons";
 
 type iState = {
   id: string | null;

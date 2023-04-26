@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  # DATABASE
+  postgres:
+    image: postgres:13.3-alpine
+    environment:
+      POSTGRES_DB: "typerunner_database"
+      POSTGRES_USER: "typerunner"
+      POSTGRES_PASSWORD: "thisisapassword"
+
+  # BACKEND SERVER
+  backend:
+    build: "./backend"
+    environment:
+      DATABASE_URL: postgres://typerunner:thisisapassword@postgres:5432/typerunner_app?schema=public
+      SERVER_HOST: "0.0.0.0"
+      SERVER_PORT: 4000
+      MAILER_SMTP_ADDRESS: "smtp.rambler.ru"
+      MAILER_SMTP_PORT: 465
+      MAILER_LOGIN: "typerunner@rambler.ru"
+      MAILER_PASSWORD: "Typerunner123"
+      JWT_SECRET: "MySecretKeyForJwt"
+    ports:
+      - "4000:4000"
+    depends_on:
+      - postgres
+
+  #FRONTEND SERVER
+  frontend:
+    build:
+      context: "./frontend"
+      args:
+        VITE_BACKEND_ADDRESS: "http://10.0.0.213:4000"
+    environment:
+      VITE_BACKEND_ADDRESS: "http://10.0.0.213:4000"
+    ports:
+      - "4001:80"
